@@ -58,21 +58,15 @@ Single executable file only requiring standard WireGuard config file to work.
 
 ### WireGuard client set up
 
-I will mostly use CLI commands here to remove risk of misinterpretation, but file / directory operations might be as well performed via SFTP, or course.
+I will mostly use CLI commands here to avoid the risk of misinterpretation, but file / directory operations might be as well performed via SFTP, or course.
 
-1. If you have previous version of this WireGuard client installed (the one that consisted of several `.sh` files), you need to disable / remove it. Let's rename its directory for now without deleting anything:
-
-    ```sh
-    mv /etc/storage/wireguard /etc/storage/wireguard.bak
-    ```
-
-2. Create `wireguard` directory in `/etc/storage`:
+1. Create `wireguard` directory in `/etc/storage`:
 
     ```sh
     mkdir /etc/storage/wireguard
     ```
 
-3. Copy `client.sh` to it:
+2. Copy `client.sh` to it:
 
     ```sh
     wget https://github.com/shvchk/padavan-wireguard-client/raw/main/client.sh -O /etc/storage/wireguard/client.sh
@@ -81,50 +75,50 @@ I will mostly use CLI commands here to remove risk of misinterpretation, but fil
 > [!WARNING]
 > I recommend inspecting the [client.sh](client.sh) script before running it. It's a good practice before running any code on your device, especially remote code.
 
-4. Make it executable:
+3. Make it executable:
 
     ```sh
     chmod +x /etc/storage/wireguard/client.sh
     ```
 
-5. Copy WireGuard client config file to `/etc/storage/wireguard`
+4. Copy WireGuard client config file to `/etc/storage/wireguard`
 
     Config file name will be used as a WireGuard interface name. E.g. for `wg0.conf` client create `wg0` interface.
 
 > [!IMPORTANT]
 > File name should only consist of letters, numbers and `_` `=` `+` `.` `-` characters, be less than 16 characters long and end with `.conf`. If directory has multiple config files, first one in alphabetic order will be used.
 
-6. Start WireGuard client:
+5. Start WireGuard client:
 
     ```sh
     /etc/storage/wireguard/client.sh start
     ```
 
-7. Check if internet is working fine on your devices:
+6. Check if internet is working fine on your devices:
 
     ```sh
     ping -c 3 -W 1 1.1.1.1
     ```
 
-8. In case of problems, stop WireGuard client:
+7. In case of problems, stop WireGuard client:
 
     ```sh
     /etc/storage/wireguard/client.sh stop
     ```
 
-9. After you made sure everything is working fine, enable autostart:
+8. After you made sure everything is working fine, enable autostart:
 
     ```sh
     /etc/storage/wireguard/client.sh autostart enable
     ```
 
-10. Save changes:
+9. Save changes:
 
     ```sh
     mtd_storage.sh save
     ```
 
-11. Restart router
+10. Restart router
 
 
 ### Uninstall
